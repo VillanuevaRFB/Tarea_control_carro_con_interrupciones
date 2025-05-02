@@ -1,18 +1,20 @@
-#include <Arduino.h>
+#define F_CPU 16000000UL
+#include <avr/io.h>
+#include <util/delay.h>
+#include <avr/interrupt.h>
 
-// put function declarations here:
-int myFunction(int, int);
-
-void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+char pulsadores=0;
+void config(void){
+  DDRD|=0xF0;//motores
+  PCICR|=0x01;//interrupciones B
+  PCMSK0|=0x07;//pin 0,1 y 2
+  DDRB&=~0x07;//pulsadores
+  PORTB|=0x07;//pull ups
+  sei();
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-}
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+int main(void){
+  config();
+  while (1){
+  }
 }
