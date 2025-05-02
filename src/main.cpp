@@ -41,6 +41,41 @@ void giro_corto_derecha(){
   PORTD|=0x90;
 }
 
+ISR(PCINT0_vect){
+  _delay_ms(50);
+  char estado=PINB&0x07;
+  char p0=(!(estado&0x01));
+  char p1=(!(estado&0x02));
+  char p2=(!(estado&0x04));
+
+  if(p1&&p2){
+    retroceder();
+  }
+  else if(p0&&p1){
+    giro_corto_izquierda();
+  }
+  else if(p0&&p2){
+    giro_corto_derecha();
+  }
+  else if(p1){
+    giro_largo_izquierda();
+  }
+  else if(p2){
+    giro_largo_derecha();
+  }
+  else if(p0){
+    if((PORTD&0xF0)!=0x00&&(PORTD&0xF0)!=0x50){
+      frenar();
+    }
+    else{
+      avanzar();
+    }
+  }
+  else{
+    frenar();
+  }
+}
+
 int main(void){
   config();
   while (1){
