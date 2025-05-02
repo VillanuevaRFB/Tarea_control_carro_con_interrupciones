@@ -13,6 +13,34 @@ void config(void){
   sei();
 }
 
+void frenar(){
+  PORTD&=~0xF0;
+}
+void avanzar(){
+  PORTD&=~0xF0;
+  PORTD|=0x50;
+}
+void retroceder(){
+  PORTD&=~0xF0;
+  PORTD|=0xA0;
+}
+void giro_largo_izquierda(){
+  PORTD&=~0xF0;
+  PORTD|=0x40;
+}
+void giro_corto_izquierda(){
+  PORTD&=~0xF0;
+  PORTD|=0x60;
+}
+void giro_largo_derecha(){
+  PORTD&=~0xF0;
+  PORTD|=0x10;
+}
+void giro_corto_derecha(){
+  PORTD&=~0xF0;
+  PORTD|=0x90;
+}
+
 int main(void){
   config();
   while (1){
